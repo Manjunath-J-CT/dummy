@@ -8,11 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+      screens: {
+        'mobile': '200px',   // Small screens
+        'ipad': '550px',
+        'tablet': '768px',   // Medium screens
+        'laptop': '1024px',  // Large screens
+        'desktop': '1280px',  // Extra-large screens
+      }
     },
   },
   plugins: [],
