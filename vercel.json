@@ -2,21 +2,12 @@
   "version": 2,
   "builds": [
     {
-      "src": "next.config.js",
-      "use": "@vercel/next"
+      "src": "next.config.js"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "src": "/api/(.*)"
     }
-  ],
-  "env": {
-    "MONGO": "mongodb+srv://manjunath-j:Kannadiga%4056@manjunath-j.jceam6t.mongodb.net/product-catalog"
-  }
+  ]
 }
