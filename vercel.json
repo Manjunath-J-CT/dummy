@@ -1,26 +1,22 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "next.config.js",
-        "use": "@vercel/next"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "/api/$1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/$1"
-      }
-    ],
-    "rewrites": [],
-    "redirects": [],
-    "headers": [],
-    "env": {
-      "NEXT_PUBLIC_API_URL": "https://yourapi.com"
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@vercel/next"
     }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "MONGO": "mongodb+srv://manjunath-j:Kannadiga%4056@manjunath-j.jceam6t.mongodb.net/product-catalog"
   }
-  
+}
