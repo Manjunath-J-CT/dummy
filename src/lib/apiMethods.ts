@@ -1,5 +1,5 @@
 export const getAllProducts = async () => {
-  const res = await fetch("http://localhost:3000/api/product", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export const getAllProducts = async () => {
 };
 
 export const getProduct = async (id: any) => {
-  const res = await fetch(`http://localhost:3000/api/product/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const getProduct = async (id: any) => {
 };
 
 export const addProduct = async (product: any) => {
-  const res = await fetch("http://localhost:3000/api/product", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export const addProduct = async (product: any) => {
 };
 
 export const deleteProduct = async (id: any) => {
-  const res = await fetch(`http://localhost:3000/api/product/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -53,13 +53,16 @@ export const deleteProduct = async (id: any) => {
 };
 
 export const updateProduct = async (product: any) => {
-  const res = await fetch(`http://localhost:3000/api/product/${product._id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(product),
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(product),
+    }
+  );
   if (!res.ok) {
     throw new Error("error updating product");
   }
