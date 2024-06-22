@@ -1,7 +1,4 @@
-const SearchIcon = () => {
-  return (
-    <div>
-      <svg
+<svg
         width="25"
         height="25"
         viewBox="0 0 15 15"
@@ -14,7 +11,3 @@ const SearchIcon = () => {
           fill="currentColor"
         ></path>
       </svg>
-    </div>
-  );
-};
-export default SearchIcon;

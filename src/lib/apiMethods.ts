@@ -52,17 +52,14 @@ export const deleteProduct = async (id: any) => {
   return res.json();
 };
 
-export const updateProduct = async (product: any) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(product),
-    }
-  );
+export const updateProduct = async (id: any, product: any) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(product),
+  });
   if (!res.ok) {
     throw new Error("error updating product");
   }

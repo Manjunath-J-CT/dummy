@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import ProductCard from "./productCard/ProductCard";
 import useSearchStore from "@/lib/useSearchStore";
 
@@ -104,9 +104,6 @@ const Product = ({ initialProducts, search, pathName }: ProductListProps) => {
 
   return (
     <div className="w-screen flex flex-col py-6 px-4 justify-center items-center gap-8 laptop:gap-16 laptop:py-8">
-      {currentProducts.length === 0 && (
-        <div className="text-xl">No Results Found</div>
-      )}
       <div className="w-full flex flex-wrap justify-center gap-8">
         {currentProducts.map((product) => (
           <ProductCard product={product} key={product._id} path={pathName} />
@@ -131,6 +128,9 @@ const Product = ({ initialProducts, search, pathName }: ProductListProps) => {
           </button>
         )}
       </div>
+      {currentProducts.length === 0 && (
+        <div className="text-xl text-gray-400 tablet:text-3xl">No Products Found</div>
+      )}
     </div>
   );
 };
