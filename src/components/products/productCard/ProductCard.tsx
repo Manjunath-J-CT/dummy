@@ -4,6 +4,13 @@ import { deleteProduct } from "@/lib/apiMethods";
 import useSearchStore from "@/lib/useSearchStore";
 import UpdateProduct from "@/components/updateProduct/UpdateProduct";
 import deleteIcon from "@/../public/delete.svg";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+} from "@radix-ui/react-dialog";
+import { useState } from "react";
 
 type Product = {
   _id: any;
@@ -21,6 +28,7 @@ type ProductCard = {
 const ProductCard = ({ product, path }: ProductCard) => {
   const isDelete = useSearchStore((state) => state.isDelete);
   const setIsDelete = useSearchStore((state) => state.setIsDelete);
+  const [open, setOpen] = useState(false);
 
   const handleDelete = async () => {
     await deleteProduct(product._id);
@@ -61,18 +69,45 @@ const ProductCard = ({ product, path }: ProductCard) => {
       </div>
       <div
         className={`${
-          path === "/product" ? " flex left mt-3 justify-end tablet:gap-4" : "hidden"
+          path === "/product"
+            ? " flex left mt-3 justify-end tablet:gap-4"
+            : "hidden"
         }`}
       >
         <UpdateProduct product={product} />
-        <Image
-          className="max-h-[12px] cursor-pointer tablet:max-h-[20px] hover:bg-gray-200 "
-          src={deleteIcon}
-          alt="search"
-          width={30}
-          height={30}
-          onClick={handleDelete}
-        />
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Image
+              className="max-h-[12px] cursor-pointer tablet:max-h-[20px] hover:bg-gray-200 "
+              src={deleteIcon}
+              alt="delete"
+              width={30}
+              height={30}
+            />
+          </DialogTrigger>
+          <DialogContent className="fixed inset-0 flex items-center justify-center p-6 bg-black bg-opacity-50">
+            <div className="w-full  flex flex-col gap-3 max-w-sm p-2 bg-white rounded-lg shadow-lg ipad:max-w-md ipad:p-4 tablet:max-w-lg">
+              <DialogTitle className="ipad:text-lg font-bold mb-4">
+                Delete Product
+              </DialogTitle>
+
+              <div className="flex justify-end gap-3 mt-4">
+                <button
+                  className="px-2 py-1 bg-gray-300 text-[12px] ipad:text-[17px] ipad:px-4 ipad:py-2 text-gray-800 rounded-md"
+                  onClick={() => setOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="px-2 py-1 text-[12px] ipad:text-[17px] ipad:px-4 ipad:py-2 rounded-md bg-blue-600 text-white "
+                  onClick={handleDelete}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
