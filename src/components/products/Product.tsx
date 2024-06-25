@@ -32,7 +32,7 @@ const Product = ({ initialProducts, search, pathName, containerRef }: ProductLis
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    containerRef.current?.scrollIntoView({ behavior: "smooth" });
+    containerRef.current?.scrollIntoView({ behavior: "auto" });
   };
 
   const renderPageNumbers = () => {
