@@ -42,17 +42,12 @@ const ProductCard = ({ product, path }: ProductCard) => {
       key={product._id}
       className="w-[40%] flex flex-col justify-between border-2 border-gray-300 p-1 bg-white laptop:w-[20%] laptop:p-2 tablet:w-[30%] tablet:p-1.5"
     >
-      <div>
-        <div className="flex justify-center items-center">
-          <Image
+      <div className="flex flex-col ">
+        <div className="flex justify-center max-h-[200px] max-w-[full]">
+          <img
             src={product.image}
             alt={product.name}
             loading="lazy"
-            width={350}
-            height={100}
-            layout="responsive"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            quality={80}
           />
         </div>
         <div>
@@ -62,12 +57,12 @@ const ProductCard = ({ product, path }: ProductCard) => {
             </span>
           </div>
 
-          <span className="text-[10px]  tablet:text-[16px] ipad:text-[12px]">
-            <span className="font-semibold">Price:</span> ${product.price}
+          <span className="text-[10px] text-gray-600 tablet:text-[16px] ipad:text-[12px]">
+            <span className="font-semibold text-black">Price:</span> ${product.price}
           </span>
           <div className="overflow-hidden max-h-16 tablet:max-h-24 laptop:max-h-32 leading-tight">
-            <span className="text-[10px]  tablet:text-[16px] ipad:text-[12px] leading-tight">
-              <span className="font-semibold">Description: </span>
+            <span className="text-[10px] text-gray-600  tablet:text-[16px] ipad:text-[12px] leading-tight">
+              <span className="font-semibold text-black">Description: </span>
               {product.description}
             </span>
           </div>
