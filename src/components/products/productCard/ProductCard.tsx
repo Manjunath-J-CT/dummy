@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import Image from "next/image";
 import { deleteProduct } from "@/lib/apiMethods";
 import useSearchStore from "@/lib/useSearchStore";
 import UpdateProduct from "@/components/updateProduct/UpdateProduct";
@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from "@radix-ui/react-dialog";
 import { useState } from "react";
+import Image from "next/image";
 
 type Product = {
   _id: any;
@@ -32,6 +33,7 @@ const ProductCard = ({ product, path }: ProductCard) => {
 
   const handleDelete = async () => {
     await deleteProduct(product._id);
+    setOpen(false);
     setIsDelete(!isDelete);
   };
 
@@ -45,8 +47,12 @@ const ProductCard = ({ product, path }: ProductCard) => {
           <Image
             src={product.image}
             alt={product.name}
+            loading="lazy"
             width={350}
             height={100}
+            layout="responsive"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={80}
           />
         </div>
         <div>
@@ -59,7 +65,7 @@ const ProductCard = ({ product, path }: ProductCard) => {
           <span className="text-[10px]  tablet:text-[16px] ipad:text-[12px]">
             <span className="font-semibold">Price:</span> ${product.price}
           </span>
-          <div className="overflow-auto max-h-20 tablet:max-h-24 laptop:max-h-32 leading-tight">
+          <div className="overflow-hidden max-h-16 tablet:max-h-24 laptop:max-h-32 leading-tight">
             <span className="text-[10px]  tablet:text-[16px] ipad:text-[12px] leading-tight">
               <span className="font-semibold">Description: </span>
               {product.description}
@@ -81,8 +87,7 @@ const ProductCard = ({ product, path }: ProductCard) => {
               className="max-h-[12px] cursor-pointer tablet:max-h-[20px] hover:bg-gray-200 "
               src={deleteIcon}
               alt="delete"
-              width={30}
-              height={30}
+              loading="lazy"
             />
           </DialogTrigger>
           <DialogContent className="fixed inset-0 flex items-center justify-center p-6 bg-black bg-opacity-50">

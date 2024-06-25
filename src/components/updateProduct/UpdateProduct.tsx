@@ -33,6 +33,7 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
           className="max-h-[12px] cursor-pointer tablet:max-h-[20px] hover:bg-gray-200 "
           src={edit}
           alt="search"
+          loading="lazy" 
           width={30}
           height={30}
         />

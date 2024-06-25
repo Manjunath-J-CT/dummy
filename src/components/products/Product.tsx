@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
 import ProductCard from "./productCard/ProductCard";
 import useSearchStore from "@/lib/useSearchStore";
 
@@ -16,12 +15,14 @@ type ProductListProps = {
   initialProducts: Product[];
   search: string;
   pathName: string;
+  containerRef: any;
 };
 
-const Product = ({ initialProducts, search, pathName }: ProductListProps) => {
+const Product = ({ initialProducts, search, pathName, containerRef }: ProductListProps) => {
   const currentPage = useSearchStore((state) => state.currentPage);
   const setCurrentPage = useSearchStore((state) => state.setCurrentPage);
-  const itemsPerPage = useSearchStore((state) => state.itemsPerPage);
+  const itemsPerPage = 24;
+
 
   const filteredProducts = initialProducts.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
@@ -29,9 +30,10 @@ const Product = ({ initialProducts, search, pathName }: ProductListProps) => {
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "auto" });
-  }, [currentPage]);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
@@ -40,11 +42,12 @@ const Product = ({ initialProducts, search, pathName }: ProductListProps) => {
     const startPage = Math.max(1, currentPage - halfVisiblePages);
     const endPage = Math.min(totalPages, startPage + visiblePages - 1);
 
+
     if (startPage > 1) {
       pageNumbers.push(
         <button
           key={1}
-          onClick={() => setCurrentPage(1)}
+          onClick={() => handlePageChange(1)}
           className={`px-1.5 py-1 text-[10px] tablet:px-2 tablet:py-1 tablet:text-[16px] ${
             currentPage === 1
               ? "bg-blue-500 text-white"
@@ -63,7 +66,7 @@ const Product = ({ initialProducts, search, pathName }: ProductListProps) => {
       pageNumbers.push(
         <button
           key={i}
-          onClick={() => setCurrentPage(i)}
+          onClick={() => handlePageChange(i)}
           className={`px-1 text-[10px] tablet:text-[16px] tablet:px-2 ${
             currentPage === i
               ? "bg-blue-500 text-white"
@@ -82,7 +85,7 @@ const Product = ({ initialProducts, search, pathName }: ProductListProps) => {
       pageNumbers.push(
         <button
           key={totalPages}
-          onClick={() => setCurrentPage(totalPages)}
+          onClick={() => handlePageChange(totalPages)}
           className={`px-1 text-[10px] tablet:text-[16px] tablet:px-2 ${
             currentPage === totalPages
               ? "bg-blue-500 text-white"
@@ -128,8 +131,16 @@ const Product = ({ initialProducts, search, pathName }: ProductListProps) => {
           </button>
         )}
       </div>
-      {currentProducts.length === 0 && (
-        <div className="text-xl text-gray-400 tablet:text-3xl">No Products Found</div>
+      {filteredProducts.length === 0 && (
+        <div
+          className={`${
+            pathName === "/"
+              ? " text-xl text-gray-400 tablet:text-3xl"
+              : "hidden"
+          }`}
+        >
+          No Products Found
+        </div>
       )}
     </div>
   );

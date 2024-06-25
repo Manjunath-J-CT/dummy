@@ -24,13 +24,19 @@ const Links = () => {
   const [open, setOpen] = useState(false);
 
   const onMenu = () => {
-    setOpen((prev) => !prev);
+    setOpen(!open);
   };
 
   return (
     <div>
       <div className="w-1/4 flex justify-center tablet:hidden" onClick={onMenu}>
-        <Image src={menu} alt="menu" width={100} height={100}></Image>
+        <Image
+          src={menu}
+          alt="menu"
+          loading="lazy"
+          width={100}
+          height={100}
+        ></Image>
       </div>
       {open && (
         <div className="absolute mt-2.5 left-0 bg-gray-900 gap-12 tablet:hidden w-1/4 h-screen">
@@ -52,7 +58,7 @@ const Links = () => {
             link={link}
             key={link.title}
             className="cursor-pointer "
-            onMenu={onMenu}
+            onMenu={()=>{}}
           />
         ))}
       </div>
